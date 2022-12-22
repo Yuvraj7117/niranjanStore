@@ -1,4 +1,6 @@
-import { useEffect } from "react";
+/* eslint-disable */
+
+import React,{ useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useProductContext } from "./context/productcontext";
@@ -15,8 +17,8 @@ const API = `${process.env.REACT_APP_API_URL}/api/product`;
 
 
 const SingleProduct = () => {
-  const { getSingleProduct, isSingleLoading, singleProduct } =
-    useProductContext();
+  const { getSingleProduct, isSingleLoading, singleProduct } = useProductContext();
+  
     
   const { id } = useParams();
 
@@ -33,10 +35,14 @@ const SingleProduct = () => {
     image,
   } = singleProduct;
 
+
   useEffect(() => {
-  
-    getSingleProduct(`${API}/${id}`);
-  }, []);
+
+ 
+    getSingleProduct(`${API}/${id}`)
+    // eslint-disable-next-line
+    
+  },[]);
   
 
 
