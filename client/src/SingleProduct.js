@@ -12,6 +12,7 @@ import { MdSecurity } from "react-icons/md";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import Star from "./components/Star";
 import AddToCart from "./components/AddToCart";
+import Loading from "./components/Loading";
 
 const API = `${process.env.REACT_APP_API_URL}/api/product`;
 
@@ -47,7 +48,7 @@ const SingleProduct = () => {
 
 
   if (isSingleLoading) {
-    return <div className="page_loading">Loading.....</div>;
+    return <Loading/>
   }
 
   return (
