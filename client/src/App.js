@@ -11,11 +11,15 @@ import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Registration from "./components/Registration";
+import Login from "./components/Login";
+
+
 
 
 
 const App = () => {
-
+ 
 
   const theme = {
     colors: {
@@ -55,6 +59,8 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/singleproduct/:id" element={<SingleProduct />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/register" element={<Registration/>}/>
+          <Route path="/login" element={<Login/>}/>
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />

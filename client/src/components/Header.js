@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Nav from "./Nav";
+import { UserContext } from "../context/userContext";
 
 
 const Header = () => {
  
+const { loginUser } = useContext(UserContext)
+
   return (
     <MainHeader>
    
-     
-
       <NavLink to="/">
         <h2
           style={{
@@ -25,9 +26,9 @@ const Header = () => {
           </span>{" "}
           Store
         </h2>
-      </NavLink>
+      </NavLink >
 
-      <Nav />
+      <Nav person={loginUser}/>
     </MainHeader>
   );
 };

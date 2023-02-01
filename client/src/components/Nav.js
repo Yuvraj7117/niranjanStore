@@ -4,18 +4,22 @@ import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
 import { CgMenu, CgClose } from "react-icons/cg";
 import { useCartContext } from "../context/cart_context";
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 import { Button } from "../styles/Button";
 
-const Nav = () => {
+
+const Nav = ({ person }) => {
+  // const {loginWithRedirect,logout,isAuthenticated, user} = useAuth0()
+
   const [menuIcon, setMenuIcon] = useState();
   const { total_item } = useCartContext();
-  const {loginWithRedirect,logout,isAuthenticated, user} = useAuth0()
-  
 
-  
+  // const [login, setLogin] = useState(false);
+  const name = `${person.firstname}  ${person.lastname}`;
+  const image = person.image
 
   return (
+
     <Navs>
       <div className={menuIcon ? "navbar active" : "navbar"}>
         <ul className="navbar-lists">
@@ -38,7 +42,7 @@ const Nav = () => {
           <li>
             <NavLink
               to="/products"
-              className="navbar-link "
+              className="navbar-link"
               onClick={() => setMenuIcon(false)}>
               Products
             </NavLink>
@@ -52,26 +56,20 @@ const Nav = () => {
             </NavLink>
           </li>
 
-
-          { isAuthenticated && (
-
-<div className="cart-user--profile">
-<h3>{user.name}</h3>
-<img src={user.picture} alt={user.name} />
-</div>
-          )}
+          <div className="cart-user--profile">
+            <h3>{person.status === 401 || undefined ? "" : name}</h3>
+           {person.image? <img src={image.url} alt={image} />:<div></div>}
+          </div>
           <li >
             {
-              isAuthenticated ?  <Button onClick={()=>logout()}>Logout</Button> :  <Button onClick={()=>loginWithRedirect()}>Login</Button>
+              person.status === 401 ? <NavLink to="/login"><Button>Login</Button></NavLink> : <a href="/login"><Button >Logout</Button></a>
             }
-        
-       
           </li>
           <li>
             <NavLink to="/cart" className="navbar-link cart-trolley--link">
               <FiShoppingCart className="cart-trolley" />{
-             total_item === 0?<span></span>:<span className="cart-total--item"> {total_item} </span>
-              } 
+                total_item === 0 ? <span></span> : <span className="cart-total--item"> {total_item} </span>
+              }
             </NavLink>
           </li>
         </ul>
@@ -112,16 +110,14 @@ const Navs = styled.nav`
           transition: color 0.3s linear;
         }
 
-       
-        &:hover,
+        &:hover ,
         &:active {
           color: ${({ theme }) => theme.colors.helper};
-        }
       
+        }
       }
-
-     
     }
+   
 
     .cart-user--profile {
       display: flex;
